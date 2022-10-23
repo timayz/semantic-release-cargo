@@ -1,0 +1,38 @@
+{
+  "name": "@timada/semantic-release-cargo",
+  "version": "1.0.0",
+  "description": "semantic-release plugin to publish a cargo package.",
+  "files": ["lib/*.js"],
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/timada-org/semantic-release-cargo.git"
+  },
+  "author": "snapiz",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "ava"
+  },
+  "devDependencies": {
+    "typescript": "^4.8.3",
+    "@types/node": "^18.7.16",
+    "@types/semantic-release": "^17.2.4",
+    "ts-node": "^10.9.1",
+    "ava": "^4.3.3",
+    "@ava/typescript": "^3.0.1"
+  },
+  "ava": {
+    "typescript": {
+      "rewritePaths": {
+        "src/": "lib/"
+      },
+      "compile": "tsc"
+    },
+    "files": ["src/test/*.ts"],
+    "workerThreads": false,
+    "timeout": "2m"
+  }
+}
