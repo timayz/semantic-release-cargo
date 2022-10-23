@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/timada-org/semantic-release-cargo/compare/v1.0.0...v1.0.1) (2022-10-23)
+
+
+### Bug Fixes
+
+* missing lib folder in release ([b408c22](https://github.com/timada-org/semantic-release-cargo/commit/b408c226aac1ac76b95f443cfd705594ac385df5))
+
 # 1.0.0 (2022-10-23)
 
 
