@@ -38,7 +38,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Setup semantic-release
-        run: npm install -g semantic-release @semantic-release/git @semantic-release/github @semantic-release/npm @semantic-release/changelog -D
+        run: npm install -g semantic-release @semantic-release/git @semantic-release/github @semantic-release/npm @semantic-release/changelog @semantic-release/exec -D
 
       - name: Release
         run: npx semantic-release
