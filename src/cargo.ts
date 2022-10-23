@@ -1,5 +1,4 @@
 import { spawnSync, SpawnSyncReturns } from "child_process";
-import { ExitStatus } from "typescript";
 
 export interface CargoPackage {
   id: string;
@@ -19,7 +18,7 @@ function spawnCargo(args: string): SpawnSyncReturns<Buffer> {
     args.split(" ").filter((arg) => arg.length > 0)
   );
 
-  if (cargo.status != ExitStatus.Success) {
+  if (cargo.status != 0) {
     throw new Error(cargo.stderr.toString());
   }
 
