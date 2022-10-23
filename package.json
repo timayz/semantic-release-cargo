@@ -14,7 +14,8 @@
     "access": "public"
   },
   "scripts": {
-    "test": "ava"
+    "test": "ava",
+    "prepublish": "tsc"
   },
   "devDependencies": {
     "typescript": "^4.8.3",
