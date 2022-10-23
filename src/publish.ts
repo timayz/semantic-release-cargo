@@ -5,6 +5,8 @@ export default function (config: PluginConfig, context: Context) {
   const data = getCargoMetadata();
 
   for (const cargoPackage of data.packages) {
-    cargoPublish(config.registryName, false, cargoPackage.name);
+    if (cargoPackage.publish === null) {
+      cargoPublish(config.registryName, false, cargoPackage.name);
+    }
   }
 }

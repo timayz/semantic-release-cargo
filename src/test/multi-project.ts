@@ -1,6 +1,5 @@
 import test from 'ava';
 import { getCargoMetadata } from '../cargo';
-import { verify } from '../verifyConditions';
 
 process.chdir("test/multi-project")
 

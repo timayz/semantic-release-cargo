@@ -5,6 +5,7 @@ export interface CargoPackage {
   name: string;
   manifest_path: string;
   version: string;
+  publish: any[] | null;
 }
 
 export interface CargoMetadata {
