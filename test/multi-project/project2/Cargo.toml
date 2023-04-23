@@ -6,3 +6,5 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+project1 = { path = "../project1", features = ["event"] }
+lb1 = "1.0.2"

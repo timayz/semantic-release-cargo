@@ -38,9 +38,9 @@ test('replaceVersion changes version correctly', t => {
     const testFileName = randomUUID() + ".test"
     copyFileSync("Cargo.toml", testFileName)
 
-    replaceVersion(testFileName, "0.1.0", "1.33.7")
+    replaceVersion(testFileName, "1.33.7")
 
-    t.deepEqual(readFileSync(testFileName), readFileSync("Cargo.toml.expected"))
+    t.deepEqual(readFileSync(testFileName).toString(), readFileSync("Cargo.toml.expected").toString())
 
     unlinkSync(testFileName)
 });

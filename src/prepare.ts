@@ -1,18 +1,52 @@
 import { readFileSync, writeFileSync } from "fs";
 import { Context } from "semantic-release";
+import TOML from "@ltd/j-toml";
 import { getCargoMetadata } from "./cargo";
 
 export default function (config: PluginConfig, context: Context) {
-    const data = getCargoMetadata()
+  const data = getCargoMetadata();
 
-    for (const cargoPackage of data.packages) {
-        replaceVersion(cargoPackage.manifest_path, cargoPackage.version, context.nextRelease?.version!!)
-    }
+  for (const cargoPackage of data.packages) {
+    replaceVersion(cargoPackage.manifest_path, context.nextRelease?.version!!);
+  }
 }
 
-export function replaceVersion(manifestPath: string, oldVersion: string, newVersion: string) {
-    const re = new RegExp(`(version\\s*=\\s*")(${oldVersion})(".*)`)
-    const manifest = readFileSync(manifestPath, { encoding: 'utf8' })
+export function replaceVersion(manifestPath: string, newVersion: string) {
+  let manifest_content = readFileSync(manifestPath, { encoding: "utf8" });
+  let manifest = TOML.parse(manifest_content, {
+    x: {
+      literal: true,
+      comment: true,
+      multi: true,
+      order: true,
+      exact: true,
+      longer: true,
+      null: true,
+      string: true,
+    },
+  }) as {
+    package: { version: any };
+    dependencies: {
+      [key: string]: { path?: string; version: any } | string;
+    };
+  };
 
-    writeFileSync(manifestPath, manifest.replace(re, `$1${newVersion}$3`))
+  manifest.package.version = TOML.literal(`"${newVersion}"`);
+
+  for (let [, value] of Object.entries(manifest.dependencies)) {
+    if (typeof value == "object" && value.path) {
+      value.version = TOML.literal(`"${newVersion}"`);
+    }
+  }
+
+  writeFileSync(
+    manifestPath,
+    TOML.stringify(manifest, {
+      newline: "\n",
+      xBeforeNewlineInMultilineTable: "",
+      newlineAround: "section",
+    })
+      .toString()
+      .replace("\n", "")
+  );
 }
