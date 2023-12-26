@@ -1,9 +1,9 @@
 import { readFileSync, writeFileSync } from "fs";
-import { Context } from "semantic-release";
+import { PrepareContext } from "semantic-release";
 import TOML from "@ltd/j-toml";
 import { getCargoMetadata } from "./cargo";
 
-export default function (config: PluginConfig, context: Context) {
+export default function (config: PluginConfig, context: PrepareContext) {
   const data = getCargoMetadata();
 
   for (const cargoPackage of data.packages) {

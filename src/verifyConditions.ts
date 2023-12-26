@@ -1,7 +1,7 @@
-import { Context } from "semantic-release";
+import { VerifyConditionsContext } from "semantic-release";
 import { getCargoMetadata } from "./cargo";
 
-export default function (config: PluginConfig, context: Context) {
+export default function (config: PluginConfig, context: VerifyConditionsContext) {
   verify(config.cargoPublish, config.registryName, context.env);
 }
 

@@ -1,7 +1,7 @@
-import { Context } from "semantic-release";
+import { PublishContext } from "semantic-release";
 import { cargoPublish, getCargoMetadata } from "./cargo";
 
-export default function (config: PluginConfig, context: Context) {
+export default function (config: PluginConfig, context: PublishContext) {
   if (!config.cargoPublish) {
     return;
   }
