@@ -26,16 +26,29 @@ export function replaceVersion(manifestPath: string, newVersion: string) {
     },
   }) as {
     package: { version: any };
-    dependencies: {
+    dependencies?: {
+      [key: string]: { path?: string; version: any } | string;
+    };
+    "dev-dependencies"?: {
       [key: string]: { path?: string; version: any } | string;
     };
   };
 
   manifest.package.version = TOML.literal(`"${newVersion}"`);
 
-  for (let [, value] of Object.entries(manifest.dependencies)) {
-    if (typeof value == "object" && value.path) {
-      value.version = TOML.literal(`"${newVersion}"`);
+  if (manifest.dependencies) {
+    for (let [, value] of Object.entries(manifest.dependencies)) {
+      if (typeof value == "object" && value.path) {
+        value.version = TOML.literal(`"${newVersion}"`);
+      }
+    }
+  }
+
+  if (manifest["dev-dependencies"]) {
+    for (let [, value] of Object.entries(manifest["dev-dependencies"])) {
+      if (typeof value == "object" && value.path) {
+        value.version = TOML.literal(`"${newVersion}"`);
+      }
     }
   }
 
