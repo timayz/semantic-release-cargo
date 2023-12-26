@@ -1,9 +1,9 @@
 import { readFileSync, writeFileSync } from "fs";
-import { Context } from "semantic-release";
+import { PrepareContext } from "semantic-release";
 import TOML from "@ltd/j-toml";
 import { getCargoMetadata } from "./cargo";
 
-export default function (config: PluginConfig, context: Context) {
+export default function (config: PluginConfig, context: PrepareContext) {
   const data = getCargoMetadata();
 
   for (const cargoPackage of data.packages) {
@@ -26,16 +26,29 @@ export function replaceVersion(manifestPath: string, newVersion: string) {
     },
   }) as {
     package: { version: any };
-    dependencies: {
+    dependencies?: {
+      [key: string]: { path?: string; version: any } | string;
+    };
+    "dev-dependencies"?: {
       [key: string]: { path?: string; version: any } | string;
     };
   };
 
   manifest.package.version = TOML.literal(`"${newVersion}"`);
 
-  for (let [, value] of Object.entries(manifest.dependencies)) {
-    if (typeof value == "object" && value.path) {
-      value.version = TOML.literal(`"${newVersion}"`);
+  if (manifest.dependencies) {
+    for (let [, value] of Object.entries(manifest.dependencies)) {
+      if (typeof value == "object" && value.path) {
+        value.version = TOML.literal(`"${newVersion}"`);
+      }
+    }
+  }
+
+  if (manifest["dev-dependencies"]) {
+    for (let [, value] of Object.entries(manifest["dev-dependencies"])) {
+      if (typeof value == "object" && value.path) {
+        value.version = TOML.literal(`"${newVersion}"`);
+      }
     }
   }
 

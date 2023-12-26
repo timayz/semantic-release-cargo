@@ -20,15 +20,15 @@
     "build": "tsc"
   },
   "devDependencies": {
-    "@ava/typescript": "^4.0.0",
+    "@ava/typescript": "^4.1.0",
     "@semantic-release/git": "^10.0.1",
-    "@semantic-release/github": "^8.0.7",
-    "@types/node": "^18.16.0",
-    "@types/semantic-release": "^20.0.1",
-    "ava": "^5.2.0",
-    "semantic-release": "^21.0.1",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.0.4"
+    "@semantic-release/github": "^9.2.6",
+    "@types/node": "^18.19.0",
+    "@types/semantic-release": "^20.0.6",
+    "ava": "^6.0.1",
+    "semantic-release": "^22.0.12",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   },
   "ava": {
     "typescript": {

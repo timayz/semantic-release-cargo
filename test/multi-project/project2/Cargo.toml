@@ -8,3 +8,6 @@ edition = "2021"
 [dependencies]
 project1 = { path = "../project1", features = ["event"] }
 lb1 = "1.0.2"
+
+[dev-dependencies]
+project1 = { path = "../project1", features = ["event", "test"] }
